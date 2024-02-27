@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Consumo de Energía</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-section">
+            <h2>Consumo de energía por mes</h2>
+            <img src="{{ url_for('static', filename='imagenes/Consumo_x_mes.png') }}" alt="Consumo de energía por mes">
+        </div>
+
+<!-- Sección H_F_C_E_: Histograma de Frecuencia por consumo de Energía -->
+<div class="dashboard-section">
+    <h2>Histograma de Frecuencia por consumo de Energía</h2>
+    <select id="mesesp" onchange="cambiarMes('histograma-img', 'H_F_C_E_')">
+        <option value="enero">Enero</option>
+        <option value="febrero">Febrero</option>
+        <option value="marzo">Marzo</option>
+        <option value="abril">Abril</option>
+        <option value="mayo">Mayo</option>
+        <option value="junio">Junio</option>
+        <option value="julio">Julio</option>
+        <option value="agosto">Agosto</option>
+        <option value="septiembre">Septiembre</option>
+        <option value="octubre">Octubre</option>
+    </select>
+
+    <div id="imagenMes">
+        <img id="histograma-img" src="{{ url_for('static', filename='imagenes/H_F_C_E_enero.png') }}"
+            alt="Histograma de Frecuencia por consumo de Energía">
+    </div>
+
+    <script>
+        var prefijoFCE = 'H_F_C_E_';
+
+        function cambiarMes(idImagen, prefijo) {
+            var select = document.getElementById("mesesp");
+            var mesSeleccionado = select.options[select.selectedIndex].value;
+            var imagen = document.getElementById(idImagen);
+
+            const rutaImagen = "{{ url_for('static', filename='imagenes/') }}" + prefijo + mesSeleccionado + '.png';
+
+            imagen.src = rutaImagen;
+            imagen.alt = "Histograma de Frecuencia por consumo de Energía en " + mesSeleccionado;
+        }
+    </script>
+</div>
+
+
+
+</div>
+
+    </div>
+
+    <!-- siguiente dashhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
+
+    <div class="dashboard-container">
+        <div class="dashboard-section">
+            <h2>Consumo de energía de una muestra aleatoria de 16000 datos</h2>
+            <img src="{{ url_for('static', filename='imagenes/C_E_L_M_16.png') }}" alt="Consumo de energía de una muestra aleatoria de 16000 datos">
+        </div>
+
+<!-- Sección H_A_C_: Histograma de anomalías de consumo por mes -->
+<div class="dashboard-section">
+    <h2>Histograma de anomalías de consumo por mes</h2>
+    <select id="meseAnomalia" onchange="cambiarMes('anomalia-img', 'H_A_C_')">
+        <option value="enero">Enero</option>
+        <option value="febrero">Febrero</option>
+        <option value="marzo">Marzo</option>
+        <option value="abril">Abril</option>
+        <option value="mayo">Mayo</option>
+        <option value="junio">Junio</option>
+        <option value="julio">Julio</option>
+        <option value="agosto">Agosto</option>
+        <option value="septiembre">Septiembre</option>
+        <option value="octubre">Octubre</option>
+    </select>
+    <img id="anomalia-img" src="{{ url_for('static', filename='imagenes/H_A_C_enero.png') }}" alt="Histograma de anomalías de consumo por mes">
+</div>
+
+<script>
+    var prefijoAnomalia = '{{ "H_A_C_" }}';
+
+    function cambiarMes(idImagen, prefijo) {
+        var select = document.getElementById("meseAnomalia");
+        var mesSeleccionado = select.options[select.selectedIndex].value;
+        var imagen = document.getElementById(idImagen);
+
+        const rutaImagen = "{{ url_for('static', filename='imagenes/') }}" + prefijo + mesSeleccionado + '.png';
+        console.log(rutaImagen);
+        imagen.src = rutaImagen;
+        imagen.alt = "Histograma de anomalías de consumo por mes en " + mesSeleccionado;
+    }
+</script>
+
+
+        <!-- Repite la misma estructura para las otras secciones -->
+
+    </div>
+
+    <!-- siguiente dashhhhhhhhhhhhhhhhhhhhhhhhhhhh SOLO IMAGENES -->
+    <div class="dashboard-container">
+        <div class="dashboard-section">
+            <h2>Grafico de deuda por mes</h2>
+            <img src="{{ url_for('static', filename='imagenes/Distrib_deuda_x_mes.png') }}" alt="Grafico de deuda por mes">
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Histograma de Facturas Pendientes</h2>
+            <img src="{{ url_for('static', filename='imagenes/H_Factura_pend.png') }}" alt="Histograma de Facturas Pendientes">
+        </div>
+
+        <!-- Repite la misma estructura para las otras secciones -->
+
+    </div>
+
+    <div class="dashboard-container">
+        <div class="dashboard-section">
+            <h2>Matriz de Correlación</h2>
+            <img src="{{ url_for('static', filename='imagenes/Matriz_correlacion.png') }}" alt="Matriz de Correlación">
+        </div>
+
+        <!-- Repite la misma estructura para las otras secciones -->
+
+        <div class="dashboard-section">
+            <h2>Clustering de Consumo de Energía</h2>
+            <p>Aleatoria</p>
+            <img id="clustering-img" src="{{ url_for('static', filename='imagenes/Clustering_CEA.png') }}" alt="Clustering de Consumo de Energía Aleatorio">
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Clustering de Consumo de Energía</h2>
+            <p>Normal</p>
+            <img id="clustering-img" src="{{ url_for('static', filename='imagenes/Clustering_CE.png') }}" alt="Clustering de Consumo de Energía Normal">
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e3e3f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .dashboard-section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            width: calc(49% - 40px);
+            background-color: #fcfcfc;
+            box-shadow: 0 4px 8px rgba(244, 241, 241, 0.1);
+        }
+
+        .dashboard-section h2 {
+            margin-top: 0;
+            color: #070101;
+            font-size: 1.5em;
+        }
+
+        .dashboard-section select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .dashboard-section img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+            margin-top: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(234, 236, 232, 0.1);
+        }
+
+        .dashboard-section p {
+            margin-top: 0;
+            color: #070101;
+            font-size: 1.5em;
+        }
+
+        .dashboard-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            /* Para centrar el texto */
+        }
+
+        .dashboard-section {
+            text-align: center;
+        }
+
+        .dashboard-section img {
+            display: inline-block;
+            margin: 20 auto;
+            /* Esto centrará la imagen */
+        }
+    </style>
+</body>
+
+</html>
